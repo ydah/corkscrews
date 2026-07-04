@@ -1,0 +1,17 @@
+id: b05_gvl_contention
+category: gvl
+targets: lines
+progress_point: work_done
+truth:
+  target:
+    kind: line
+    file: base.rb
+    line: 23
+  optimized_speedup_of_target: 0.50
+run:
+  repeat: 3
+  iterations: 160
+  sample_period_ms: 0.5
+acceptance:
+  t1_mae_pct: 80.0
+  t4_overhead_pct: 30.0

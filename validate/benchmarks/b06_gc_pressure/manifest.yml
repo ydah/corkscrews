@@ -1,0 +1,16 @@
+id: b06_gc_pressure
+category: gc
+targets: both
+progress_point: work_done
+truth:
+  target:
+    kind: wait
+    name: gc_pause
+  optimized_speedup_of_target: 0.50
+run:
+  repeat: 3
+  iterations: 400
+  sample_period_ms: 0.5
+acceptance:
+  t1_mae_pct: 120.0
+  t4_overhead_pct: 45.0

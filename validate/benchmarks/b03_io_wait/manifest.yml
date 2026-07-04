@@ -1,0 +1,16 @@
+id: b03_io_wait
+category: io
+targets: both
+progress_point: work_done
+truth:
+  target:
+    kind: wait
+    name: io_wait
+  optimized_speedup_of_target: 0.50
+run:
+  repeat: 3
+  iterations: 160
+  sample_period_ms: 0.5
+acceptance:
+  t1_mae_pct: 90.0
+  t4_overhead_pct: 35.0

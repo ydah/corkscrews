@@ -1,0 +1,23 @@
+id: b01_serial_hotspot
+category: cpu
+progress_point: work_done
+truth:
+  target:
+    kind: line
+    file: base.rb
+    line: 7
+  optimized_speedup_of_target: 0.50
+variants:
+  - id: optimize_hot
+    predicted_rank: 1
+    actual_rank: 1
+  - id: optimize_cold
+    predicted_rank: 2
+    actual_rank: 2
+run:
+  repeat: 5
+  iterations: 12000
+  sample_period_ms: 0.25
+acceptance:
+  t1_mae_pct: 20.0
+  t4_overhead_pct: 10.0

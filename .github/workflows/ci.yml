@@ -1,0 +1,72 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Ruby ${{ matrix.ruby }}
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby:
+          - "3.3"
+          - "3.4"
+          - "4.0"
+          - "head"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Build native extension
+        run: bundle exec rake compile
+      - name: Run specs
+        run: bundle exec rake
+
+  stats-smoke:
+    name: Stats smoke
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Run independent stats smoke
+        run: python3 validate/harness/stats_check.py
+
+  full-validation:
+    if: github.event_name == 'workflow_dispatch'
+    name: Full validation Ruby ${{ matrix.ruby }}
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby:
+          - "3.3"
+          - "3.4"
+          - "4.0"
+          - "head"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Build native extension
+        run: bundle exec rake compile
+      - name: Run quick validation
+        run: ruby -Ilib exe/corkscrews validate --quick
+      - name: Run full validation
+        run: ruby -Ilib exe/corkscrews validate

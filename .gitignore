@@ -1,0 +1,18 @@
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/*.gem
+/spec/reports/
+/tmp/
+/ext/corkscrews/Makefile
+/ext/corkscrews/*.o
+/ext/corkscrews/*.bundle
+/ext/corkscrews/*.bundle.dSYM/
+/ext/corkscrews/mkmf.log
+
+# rspec failure tracking
+.rspec_status
+Gemfile.lock
